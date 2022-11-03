@@ -4,6 +4,7 @@ import tn.esprit.projet.entities.Etudiant;
 
 import java.util.List;
 
+
 public interface IEtudiantService {
 
     List<Etudiant> getAllEtudiant();

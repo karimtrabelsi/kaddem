@@ -31,9 +31,5 @@ public class EquipeController {
         C.setIdEquipe(id);
        iEquipeService.updateeqp(C);
     }
-    @DeleteMapping("/delDetEquipe/{IdEquipe}")
-    public  void deleteEqp(@PathVariable("IdEquipe") Long id){
 
-        iEquipeService.deleteeqp(id);
-    }
 }
