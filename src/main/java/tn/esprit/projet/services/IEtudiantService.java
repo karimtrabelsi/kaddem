@@ -12,4 +12,6 @@ public interface IEtudiantService {
     Etudiant updateEtudiant(Etudiant E);
     void deleteEtudiant(long id);
     Etudiant getEtudiantbyid(long id);
+    void assignEtudiantToDepartement(Integer etudiantId,Integer departementId);
+
 }
