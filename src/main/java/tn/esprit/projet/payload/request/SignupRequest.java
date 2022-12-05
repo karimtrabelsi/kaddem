@@ -3,6 +3,8 @@ import java.util.Set;
 
 import javax.validation.constraints.*;
 public class SignupRequest {
+    private String firstName;
+    private String lastName;
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
@@ -11,8 +13,7 @@ public class SignupRequest {
     @Size(max = 50)
     @Email
     private String email;
-    private String firstName;
-    private String lastName;
+
 
     private Set<String> role;
 

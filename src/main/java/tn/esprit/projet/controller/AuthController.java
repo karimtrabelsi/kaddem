@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -34,6 +35,7 @@ import tn.esprit.projet.repository.UserRepository;
 import tn.esprit.projet.security.JwtUtils;
 import tn.esprit.projet.services.UserDetailsImpl;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600,allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
@@ -69,6 +71,8 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        log.info("logged in");
+
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(new UserInfoResponse(userDetails.getId(),
                         userDetails.getUsername(),
@@ -76,6 +80,7 @@ public class AuthController {
                         userDetails.getLastName(),
                         userDetails.getEmail(),
                         roles));
+
     }
 
     @PostMapping("/signup")
@@ -89,9 +94,10 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(
                 signUpRequest.getFirstName(),
                 signUpRequest.getLastName(),
+                signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -127,13 +133,14 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
-
+    log.info("aa");
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+        log.info("logged out");
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
     }
