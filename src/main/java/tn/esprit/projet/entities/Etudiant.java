@@ -1,4 +1,5 @@
 package tn.esprit.projet.entities;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,17 +27,15 @@ public class Etudiant implements Serializable {
     @NonNull
     private String prenom;
     private String nom;
+    private String email;
     @Enumerated(EnumType.STRING)
     private Domaine domaine;
     @ManyToOne(cascade = CascadeType.ALL)
     Departement Departement;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "Etudiant")
-    private Set<Contrat> Contrats;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "etudiant")
+    @JsonIgnoreProperties({"etudiant"})
+    private Set<Contrat> contrats;
     @ManyToMany(cascade = CascadeType.ALL)
     private Set <Equipe> Equipes;
-
-
-
-
 
 }

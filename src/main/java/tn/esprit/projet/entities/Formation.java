@@ -1,5 +1,6 @@
 package tn.esprit.projet.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,8 @@ public class Formation implements Serializable {
     @Column(name = "idFormation")
     private Long idFormation;
     private String Nom;
-    @Temporal(TemporalType.DATE)
+    @Temporal (TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DateFormation;
     private String Description;
     @Enumerated(EnumType.STRING)

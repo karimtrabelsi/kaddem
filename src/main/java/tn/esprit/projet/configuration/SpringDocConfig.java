@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import tn.esprit.projet.entities.Contrat;
 import tn.esprit.projet.entities.Reclamation;
 import tn.esprit.projet.services.IContratService;
@@ -19,13 +20,14 @@ import tn.esprit.projet.services.IReclamationService;
 
 @Configuration
 public class SpringDocConfig {
+
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI().info(infoAPI());
 
     }
     public Info infoAPI() {
-        return new Info().title("SpringDoc Kaddem").description("Team Bestegroupe").contact(contactAPI());
+        return new Info().title("SpringDoc Kaddem").description("Team Kaddem").contact(contactAPI());
 
     }
     public Contact contactAPI() {

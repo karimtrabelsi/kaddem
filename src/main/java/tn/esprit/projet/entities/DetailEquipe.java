@@ -21,7 +21,8 @@ public class DetailEquipe  implements Serializable {
     private Long IdEquipe;
     private Long salle;
     private String thematique;
-    @OneToOne(mappedBy = "DetailEquipe1")
+
+    @OneToOne(cascade = CascadeType.ALL)
     private  Equipe Equipe;
 
 

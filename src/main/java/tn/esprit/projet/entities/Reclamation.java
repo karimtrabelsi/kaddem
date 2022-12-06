@@ -20,10 +20,9 @@ public class Reclamation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idReclamation")
     private Long idReclamation;
-    private String Nom;
 
     @Temporal (TemporalType.DATE)
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DateReclamation = new Date(System.currentTimeMillis());
 
     @Enumerated(EnumType.STRING)
@@ -40,9 +39,7 @@ public class Reclamation implements Serializable {
         this.idReclamation = idReclamation;
     }
 
-    public void setNom(String nom) {
-        Nom = nom;
-    }
+
 
     public void setDateReclamation(Date dateReclamation) {
         DateReclamation = dateReclamation;
@@ -58,10 +55,6 @@ public class Reclamation implements Serializable {
 
     public Long getIdReclamation() {
         return idReclamation;
-    }
-
-    public String getNom() {
-        return Nom;
     }
 
     public Date getDateReclamation() {

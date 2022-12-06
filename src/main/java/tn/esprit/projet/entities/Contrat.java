@@ -20,11 +20,11 @@ public class Contrat implements Serializable {
     @Column(name="idContrat")
     private Long idContrat;
     @Temporal (TemporalType.DATE)
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DateDebutContrat;
 
     @Temporal (TemporalType.DATE)
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DateFinContrat;
 
     private  boolean archive;
@@ -32,7 +32,7 @@ public class Contrat implements Serializable {
     private Specialite specialite;
     private float montant;
     @ManyToOne(cascade = CascadeType.ALL)
-    Etudiant Etudiant;
+    Etudiant etudiant;
 
     public Long getIdContrat() {
         return idContrat;

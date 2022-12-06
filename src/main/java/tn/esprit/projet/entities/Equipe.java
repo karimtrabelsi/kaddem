@@ -17,10 +17,13 @@ public class Equipe implements  Serializable {
     @Column(name="idEquipe")
     private Long idEquipe; // Clé primaire
     private String nomEquipe;
+
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private DetailEquipe DetailEquipe1;
+
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "Equipes")
     private Set<Etudiant> Etudiants;
 

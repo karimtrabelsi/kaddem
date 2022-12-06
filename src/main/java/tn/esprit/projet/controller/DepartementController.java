@@ -27,13 +27,13 @@ public class DepartementController {
 
     @Operation(summary = "Add Departement", description = "Ajouter des Departements ")
     @PostMapping("/addDep")
-    public void  addContrat(@RequestBody Departement D){
+    public void  addDep(@RequestBody Departement D){
         iDepartementService.addep(D);
     }
 
     @Operation(summary = "Update Departement", description = "Modifier des Departements ")
     @PutMapping("/putDep/{idDepart}")
-    public void updateC(@PathVariable("idDepart") Long id, @RequestBody Departement C){
+    public void updateDep(@PathVariable("idDepart") Long id, @RequestBody Departement C){
 
      // return iDepartementService.updatedep(C,id) ;
         C.setIdDepart(id);
@@ -42,7 +42,7 @@ public class DepartementController {
 
     @Operation(summary = "Delete Departement", description = "Supprimer des Departements ")
     @DeleteMapping("/delDep/{idDepart}")
-    public  String deleteC(@PathVariable("idDepart") Long id){
+    public  String deleteDep(@PathVariable("idDepart") Long id){
 
         iDepartementService.deletedep(id);
         return "Deleted Successfully";
