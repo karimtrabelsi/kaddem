@@ -2,18 +2,14 @@ package tn.esprit.projet.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
-import tn.esprit.projet.entities.Etudiant;
-import tn.esprit.projet.entities.Reclamation;
+import tn.esprit.projet.entities.*;
 import tn.esprit.projet.repository.EtudiantRepository;
 import tn.esprit.projet.repository.ReclamationRepository;
 
 import java.util.List;
-import java.util.Properties;
 
 @Service
 public class ReclamationServiceIMPL implements  IReclamationService{
@@ -29,13 +25,16 @@ public class ReclamationServiceIMPL implements  IReclamationService{
 
 
     @Override
-    public void sendMessageWithAttachment(String text,String to){
+    public void sendMessageWithAttachment(String nom,Type objet,String to){
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("testahmedahmed210@gmail.com");
         message.setTo(to);
-        message.setSubject("Reclamation Body");
-        message.setText(text);
+        message.setSubject("Reclamation");
+        message.setText("Bonjour Mr/Mme "+nom+
+                " Nous avons bien reçu votre demande concernant la probleme <" + objet + ">"+
+                " Nous sommes sincèrement désolés pour ce désagrément. Nous mettons tout en œuvre pour résoudre ce " +
+                "problème au plus vite.");
         emailSender.send(message);
         System.out.println("Mail sent successfully !");
     }
@@ -48,6 +47,11 @@ public class ReclamationServiceIMPL implements  IReclamationService{
         return reclamationRepository.findAll();
 
 
+    }
+
+    @Override
+    public List<Reclamation> getReclamationByType(Type type) {
+        return reclamationRepository.findByType(type);
     }
 
     @Override
@@ -76,4 +80,12 @@ public class ReclamationServiceIMPL implements  IReclamationService{
 
         return reclamationRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Reclamation confirmReclamation(long idReclamation) {
+        Reclamation c = reclamationRepository.findById(idReclamation).orElse(null);
+        c.setStatut(true);
+        return reclamationRepository.save(c);
+    }
+
 }

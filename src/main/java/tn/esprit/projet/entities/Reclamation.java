@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -26,11 +25,13 @@ public class Reclamation implements Serializable {
     private Date DateReclamation = new Date(System.currentTimeMillis());
 
     @Enumerated(EnumType.STRING)
-    private TypeRec Type;
+    private Type type;
 
     private String screenshot;
 
     private String description;
+
+    private  boolean statut;
 
     @ManyToOne(cascade = CascadeType.ALL)
     Etudiant Etudiant;
@@ -45,8 +46,8 @@ public class Reclamation implements Serializable {
         DateReclamation = dateReclamation;
     }
 
-    public void setType(TypeRec type) {
-        Type = type;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public void setScreenshot(String screenshot) {
@@ -61,8 +62,8 @@ public class Reclamation implements Serializable {
         return DateReclamation;
     }
 
-    public TypeRec getType() {
-        return Type;
+    public Type getType() {
+        return type;
     }
 
     public String getScreenshot() {
