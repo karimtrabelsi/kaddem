@@ -34,6 +34,9 @@ public class Contrat implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     Etudiant etudiant;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    User user;
+
     public Long getIdContrat() {
         return idContrat;
     }

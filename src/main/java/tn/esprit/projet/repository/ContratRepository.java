@@ -27,8 +27,8 @@ public interface ContratRepository extends JpaRepository<Contrat,Long> {
 
     List<Contrat> findBySpecialite(Specialite specialite);
 
-    public List<Contrat> findByEtudiantIdEtudiantAndAndArchive(long idEtudiant, Boolean archive);
+    public List<Contrat> findByUserIdAndAndArchive(long id, Boolean archive);
 
-    List<Contrat> findByEtudiant_IdEtudiantAndArchive(long idEtudiant, boolean archive);
+    List<Contrat> findByUserIdAndArchive(long id, boolean archive);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.projet.entities.*;
 import tn.esprit.projet.repository.EtudiantRepository;
 import tn.esprit.projet.repository.ReclamationRepository;
+import tn.esprit.projet.repository.UserRepository;
 
 import java.util.List;
 
@@ -18,9 +19,12 @@ public class ReclamationServiceIMPL implements  IReclamationService{
     ReclamationRepository reclamationRepository;
 
     @Autowired
-    EtudiantRepository ur;
+    EtudiantRepository er;
     @Autowired
     private JavaMailSender emailSender;
+
+    @Autowired
+    UserRepository ur;
 
 
 
@@ -56,8 +60,8 @@ public class ReclamationServiceIMPL implements  IReclamationService{
 
     @Override
     public Reclamation addReclamation(Reclamation R, String email) {
-        Etudiant etudiant = ur.findByEmail(email);
-        R.setEtudiant(etudiant);
+        User user = ur.findByEmail(email);
+        R.setUser(user);
         reclamationRepository.save(R);
         return reclamationRepository.save(R);
     }

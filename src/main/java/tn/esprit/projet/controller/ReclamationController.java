@@ -56,7 +56,8 @@ public class ReclamationController {
     public void  addReclamation(@RequestBody Reclamation R,@PathVariable("email") String email){
 
         ReclamationService.addReclamation(R,email);
-        ReclamationService.sendMessageWithAttachment(R.getEtudiant().getNom(),R.getType(),email);
+        System.out.println(R.getUser().getFirstName());
+        ReclamationService.sendMessageWithAttachment(R.getUser().getFirstName(),R.getType(),email);
 
     }
    /* @EventListener(ApplicationReadyEvent.class)

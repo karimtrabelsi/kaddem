@@ -108,9 +108,9 @@ public class ContratController {
     }
 
     @Operation(summary = "Get Chiffre Affaire Of Etudiant", description = "getChiffreAffaireParEtudiant")
-    @GetMapping("getChiffreAffaireParEtudiant/{idEtudiant}")
-    public float getChiffreAffaireParEtudiant(@PathVariable("idEtudiant") long idEtudiant) {
-        return contratService.getChiffreAffaireParEtudiant(idEtudiant);
+    @GetMapping("getChiffreAffaireParEtudiant/{id}")
+    public float getChiffreAffaireParEtudiant(@PathVariable("id") long id) {
+        return contratService.getChiffreAffaireParEtudiant(id);
     }
 
 

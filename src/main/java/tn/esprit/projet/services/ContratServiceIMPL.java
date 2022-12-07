@@ -7,6 +7,7 @@ import tn.esprit.projet.entities.*;
 import tn.esprit.projet.repository.ContratRepository;
 import tn.esprit.projet.repository.EquipeRepository;
 import tn.esprit.projet.repository.EtudiantRepository;
+import tn.esprit.projet.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -20,10 +21,13 @@ public class ContratServiceIMPL implements  IContratService{
     @Autowired
     ContratRepository contratRepository;
     @Autowired
-    EtudiantRepository ur;
+    EtudiantRepository er;
 
     @Autowired
-    EquipeRepository er;
+    UserRepository ur;
+
+    @Autowired
+    EquipeRepository eqr;
 
     @Override
     public List<Contrat> getAllContrat() {
@@ -69,12 +73,6 @@ public class ContratServiceIMPL implements  IContratService{
         return contratRepository.findBySpecialite(specialite);
     }
 
-    @Override
-    public Etudiant findbyname(String prenom) {
-        Etudiant e= ur.findEtudiantByPrenom(prenom);
-        return e;
-    }
-
     /*@Override
     public Contrat affectContratToEtudiant(Contrat ce, String nom, String prenom) {
         Etudiant  etudiant = ur.findByNomAndPrenom(nom,prenom);
@@ -85,11 +83,11 @@ public class ContratServiceIMPL implements  IContratService{
     @Override
     public Contrat affectContratToEtudiant(Contrat ce, String nom, String prenom) {
 
-        Etudiant etudiant = ur.findByNomAndPrenom(nom, prenom);
-        if (etudiant == null) {
+        User user = ur.findByFirstNameAndLastName(nom,prenom);
+        if (user == null) {
             System.out.println("User does not exist");
-        } else if (contratRepository.findByEtudiantIdEtudiantAndAndArchive(etudiant.getIdEtudiant(), false).size() < 5) {
-            ce.setEtudiant(etudiant);
+        } else if (contratRepository.findByUserIdAndAndArchive(user.getId(), false).size() < 5) {
+            ce.setUser(user);
 
             return contratRepository.save(ce);
         }
@@ -108,11 +106,11 @@ public class ContratServiceIMPL implements  IContratService{
 
     }
 
-    @Override
+    /*@Override
     @Transactional
     public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, long idContrat, long idEquipe) {
         Contrat contrat = contratRepository.findById(idContrat).get();
-        Equipe equipe = er.findById(idEquipe).get();
+        Equipe equipe = eqr.findById(idEquipe).get();
         e.getContrats().add(contrat);
         e.getEquipes().add(equipe);
         // contrat.setEtudiant(e);
@@ -121,16 +119,16 @@ public class ContratServiceIMPL implements  IContratService{
         System.out.println(e.getContrats());
         return e ;
 
-    }
+    }*/
 
     public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
     }
     @Override
-    public float getChiffreAffaireParEtudiant(long idEtudiant) {
+    public float getChiffreAffaireParEtudiant(long id) {
         float ca = 0;
         long nbrMois;
-        List<Contrat> contrats = contratRepository.findByEtudiant_IdEtudiantAndArchive(idEtudiant, false);
+        List<Contrat> contrats = contratRepository.findByUserIdAndArchive(id, false);
         for (Contrat c : contrats) {
             nbrMois = ChronoUnit.MONTHS.between(convertToLocalDateViaInstant(c.getDateDebutContrat()), convertToLocalDateViaInstant(c.getDateFinContrat()));
             ca += c.getMontant() * nbrMois;
@@ -144,7 +142,7 @@ public class ContratServiceIMPL implements  IContratService{
         List<Contrat> c = contratRepository.dateExpin15();
         for(Contrat contrat :c){
         contrat.setArchive(true);
-        contrat.setEtudiant(null);
+        contrat.setUser(null);
         contratRepository.save(contrat);}
     }
 

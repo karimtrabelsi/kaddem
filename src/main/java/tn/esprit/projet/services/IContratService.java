@@ -20,7 +20,6 @@ public interface IContratService {
 
     List<Contrat> getContratBySpecialite(Specialite specialite);
 
-    Etudiant findbyname(String prenom);
     Contrat affectContratToEtudiant (Contrat ce, String nom, String prenom);
 
     Integer nbContratsValides(Date endDate, Date startDate);
@@ -32,7 +31,7 @@ public interface IContratService {
 
     //String retrieveStatusContrat();
 
-    public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, long idContrat,long idEquipe);
+    //public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, long idContrat,long idEquipe);
 
     void archiverContrat();
 }

@@ -36,6 +36,9 @@ public class Reclamation implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     Etudiant Etudiant;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    User user;
+
     public void setIdReclamation(Long idReclamation) {
         this.idReclamation = idReclamation;
     }
