@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.projet.entities.Contrat;
 import tn.esprit.projet.entities.Etudiant;
+import tn.esprit.projet.entities.Specialite;
 import tn.esprit.projet.services.IContratService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +37,27 @@ public class ContratController {
         return  contratService.getContratbyid(id);
     }
 
-    @Operation(summary = "Get AllContrat", description = "Afficher la liste des Contrat ")
+    @Operation(summary = "Get All Contracts", description = "Afficher la liste des Contrat ")
     @GetMapping("/getContrat")
     public List<Contrat> GetC(){
 
         return  contratService.getAllContrat();
     }
 
-    @Operation(summary = "Add Contrat", description = "Ajouter un Contrat")
+    @Operation(summary = "Get Archived Contrats", description = "Afficher la liste des Contrat Archivees ")
+    @GetMapping("/getArContrat")
+    public List<Contrat> getAllContratArchive(){
+
+        return  contratService.getAllContratArchive();
+    }
+
+    @Operation(summary = "Get All Contrat By Speciality", description = "Afficher la liste des Contrat d'une meme specialite ")
+    @GetMapping("getContratBySpecialite/{specialite}")
+    public List<Contrat> getContratBySpecialite(@PathVariable Specialite specialite) {
+        return contratService.getContratBySpecialite(specialite);
+    }
+
+    @Operation(summary = "Add Contract", description = "Ajouter un Contrat")
     @PostMapping("/addContrat")
     public void  addContrat(@RequestBody Contrat C){
 
@@ -58,7 +72,7 @@ public class ContratController {
 
 
 
-    @Operation(summary = "Update Contrat", description = "Modifier un Contrat ")
+    @Operation(summary = "Update Contract", description = "Modifier un Contrat ")
     @PutMapping("/updateContrat/{idContrat}")
     public void updateC(@PathVariable("idContrat") Long id, @RequestBody Contrat C){
 
@@ -66,14 +80,14 @@ public class ContratController {
         contratService.updateContrat(C);
     }
 
-    @Operation(summary = "Delete a Contrat  By ID", description = "Supprimer un Contrat  par son id")
+    @Operation(summary = "Delete a Contract By ID", description = "Supprimer un Contrat  par son id")
     @DeleteMapping("/delContrat/{idContrat}")
     public  void deleteC(@PathVariable("idContrat") Long id){
 
         contratService.deleteContrat(id);
     }
 
-    @Operation(summary = "Affect Contrat to user", description = "affectContratToEtudiant")
+    @Operation(summary = "Affect Contract to user", description = "affectContratToEtudiant")
     @PutMapping(value = "/affectContratToEtudiant/{nom}/{prenom}")
     @ResponseBody
     public Contrat affectContratToEtudiant(@RequestBody Contrat c, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom) {
@@ -91,6 +105,20 @@ public class ContratController {
     @GetMapping("/contratExp/")
     List<Contrat> contratExp(){
         return contratService.contratExp();
+    }
+
+    @Operation(summary = "Get Chiffre Affaire Of Etudiant", description = "getChiffreAffaireParEtudiant")
+    @GetMapping("getChiffreAffaireParEtudiant/{idEtudiant}")
+    public float getChiffreAffaireParEtudiant(@PathVariable("idEtudiant") long idEtudiant) {
+        return contratService.getChiffreAffaireParEtudiant(idEtudiant);
+    }
+
+
+    @Operation(summary = "Archive Contact", description = "archiverContrat")
+    @PutMapping("archiverContrat")
+    public void archiverContrat() {
+
+        contratService.archiverContrat();
     }
 
    /* @Operation(summary = "add And Assign Etudiant To Equipe And Contract", description = "addAndAssignEtudiantToEquipeAndContract")

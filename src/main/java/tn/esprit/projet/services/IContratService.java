@@ -2,6 +2,7 @@ package tn.esprit.projet.services;
 
 import tn.esprit.projet.entities.Contrat;
 import tn.esprit.projet.entities.Etudiant;
+import tn.esprit.projet.entities.Specialite;
 
 import java.util.Date;
 import java.util.List;
@@ -9,10 +10,16 @@ import java.util.List;
 public interface IContratService {
 
     List<Contrat> getAllContrat();
+
+    List<Contrat> getAllContratArchive();
+
     Contrat addContrat(Contrat C);
     Contrat updateContrat(Contrat C);
     void deleteContrat(long id);
     Contrat getContratbyid(long id);
+
+    List<Contrat> getContratBySpecialite(Specialite specialite);
+
     Etudiant findbyname(String prenom);
     Contrat affectContratToEtudiant (Contrat ce, String nom, String prenom);
 
@@ -20,8 +27,12 @@ public interface IContratService {
 
     List<Contrat> contratExp();
 
-    String retrieveStatusContrat();
+
+    float getChiffreAffaireParEtudiant(long idEtudiant);
+
+    //String retrieveStatusContrat();
 
     public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, long idContrat,long idEquipe);
 
+    void archiverContrat();
 }

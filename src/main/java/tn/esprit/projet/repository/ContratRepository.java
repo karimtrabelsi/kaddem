@@ -3,6 +3,7 @@ package tn.esprit.projet.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import tn.esprit.projet.entities.Contrat;
+import tn.esprit.projet.entities.Specialite;
 
 import java.util.Date;
 import java.util.List;
@@ -16,9 +17,18 @@ public interface ContratRepository extends JpaRepository<Contrat,Long> {
     @Query("select  c from Contrat c where DATEDIFF(current_date,c.DateFinContrat)>1")
     List<Contrat> dateExpi();
 
-    @Query("select  c from Contrat c where DATEDIFF(current_date,c.DateFinContrat)=-15")
+    @Query("select  c from Contrat c where c.archive=true")
+    List<Contrat> ContratArchive();
+
+    @Query("select  c from Contrat c where DATEDIFF(current_date,c.DateFinContrat)>15")
     List<Contrat> dateExpin15();
     @Query("select c from Contrat c where DATEDIFF(c.DateFinContrat,c.DateDebutContrat)>=365")
     List<Contrat> contratDepasseAn();
+
+    List<Contrat> findBySpecialite(Specialite specialite);
+
+    public List<Contrat> findByEtudiantIdEtudiantAndAndArchive(long idEtudiant, Boolean archive);
+
+    List<Contrat> findByEtudiant_IdEtudiantAndArchive(long idEtudiant, boolean archive);
 
 }
