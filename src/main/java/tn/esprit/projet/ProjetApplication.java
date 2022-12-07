@@ -14,7 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ProjetApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProjetApplication.class, args);
+        SpringApplication.
+                run(ProjetApplication.class, args);
     }
 
 
