@@ -17,4 +17,10 @@ public interface UserService {
 
     List<User> getUsers();
 
+    void updateResetPasswordToken(String token,String email);
+
+    User get(String token);
+
+    void updatePassword(User user,String newPassword);
+
 }

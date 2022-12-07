@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -38,6 +39,12 @@ public class User {
         @NotBlank
         @Size(max = 120)
         private String password;
+        private String token;
+        private int verificationCode;
+
+        private boolean enabled;
+        private String phoneNumber;
+
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"),
@@ -47,11 +54,13 @@ public class User {
         public User() {
         }
 
-        public User(String firstName, String lastName, String username, String email, String password) {
+        public User(String firstName, String lastName, String username, String email, String password,String phoneNumber,boolean enabled) {
                 this.firstName = firstName;
                 this.lastName = lastName;
                 this.username = username;
                 this.email = email;
+                this.phoneNumber= phoneNumber;
+                this.enabled= enabled;
                 this.password = password;
         }
 
@@ -109,5 +118,37 @@ public class User {
 
         public void setRoles(Set<Role> roles) {
                 this.roles = roles;
+        }
+
+        public String getToken() {
+                return token;
+        }
+
+        public void setToken(String token) {
+                this.token = token;
+        }
+
+        public int getVerificationCode() {
+                return verificationCode;
+        }
+
+        public void setVerificationCode(int verificationCode) {
+                this.verificationCode = verificationCode;
+        }
+
+        public boolean isEnabled() {
+                return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+        }
+
+        public String getPhoneNumber() {
+                return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
         }
 }

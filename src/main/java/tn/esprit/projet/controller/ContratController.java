@@ -2,14 +2,17 @@ package tn.esprit.projet.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.projet.entities.Contrat;
 import tn.esprit.projet.entities.Etudiant;
 import tn.esprit.projet.services.IContratService;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('admin')")
 public class ContratController {
     @Autowired
     IContratService contratService;

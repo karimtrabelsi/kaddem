@@ -9,10 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.projet.entities.User;
 import tn.esprit.projet.repository.UserRepository;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
+
 
 @Service public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+    private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
 
     @Override
     @Transactional
@@ -22,4 +28,6 @@ import tn.esprit.projet.repository.UserRepository;
 
         return UserDetailsImpl.build(user);
     }
+
+
 }

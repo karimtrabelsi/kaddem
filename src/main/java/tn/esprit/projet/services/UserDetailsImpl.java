@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import tn.esprit.projet.entities.User;
+import tn.esprit.projet.security.PasswordResetToken;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +21,11 @@ public class UserDetailsImpl implements UserDetails {
     private String username;
 
     private String email;
+    private String phoneNumber;
+
+
+    private User user;
+
 
 
 
@@ -28,7 +34,9 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id,String firstName,String lastName, String username, String email, String password,
+
+
+    public UserDetailsImpl(Long id,String firstName,String lastName, String username, String email, String password,String phoneNumber,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.firstName= firstName;
@@ -36,6 +44,7 @@ public class UserDetailsImpl implements UserDetails {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.phoneNumber= phoneNumber;
         this.authorities = authorities;
     }
 
@@ -51,6 +60,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getPhoneNumber(),
                 authorities);
     }
 
@@ -113,5 +123,9 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

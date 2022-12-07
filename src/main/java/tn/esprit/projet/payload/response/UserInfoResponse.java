@@ -8,14 +8,16 @@ public class UserInfoResponse {
     private String username;
 
     private String email;
+    private String phoneNumber;
     private List<String> roles;
 
-    public UserInfoResponse(Long id,String firstName,String lastName, String username, String email, List<String> roles) {
+    public UserInfoResponse(Long id,String firstName,String lastName, String username, String email,String phoneNumber, List<String> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.roles = roles;
     }
 
@@ -61,5 +63,13 @@ public class UserInfoResponse {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
